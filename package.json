@@ -36,6 +36,7 @@
     "lint": "eslint ./",
     "test": "npm run lint && mocha --require @babel/register && npm run docs-build",
     "prepublishOnly": "npm run build && npm run docs-build",
+    "prepare": "npm run build",
     "release": "release"
   },
   "devDependencies": {
