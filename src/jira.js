@@ -1969,16 +1969,45 @@ export default class JiraApi {
 
   /** Get Filter
    * [Jira Doc](https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/filter)
+   * [Jira Doc](https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/#api/2/filter-getFilter)
    * @name getFilter
    * @function
    * @param {string} filterId - Id of filter to retrieve
+   * @param {string} jiraProduct - cloud|server offering
    */
 
-  getFilter(filterId) {
-    return this.doRequest(this.makeRequestHeader(this.makeAgileUri({
-      pathname: `/filter/${filterId}`,
-    })));
+  getFilter(filterId,jiraProduct='cloud') {
+    if (jiraProduct == 'cloud') {
+      return this.doRequest(this.makeRequestHeader(this.makeAgileUri({
+        pathname: `/filter/${filterId}`,
+      })));
+    } else {
+      return this.doRequest(this.makeRequestHeader(this.makeUri({
+        pathname: `/filter/${filterId}`,
+      })));
+    }
+    
   }
+
+   /** Get Favorite Filters
+   * [Jira Doc](https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/filter) ??Not sure if there is one, I can't even find the filter api doc
+   * [Jira Doc](https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/#api/2/filter-getFavouriteFilters)
+   * @name getFavoriteFilters
+   * @function
+   * @param {string} jiraProduct - cloud|server offering
+   */
+
+     getFavoriteFilters(jiraProduct='cloud') {
+      if (jiraProduct == 'cloud') {
+        return this.doRequest(this.makeRequestHeader(this.makeAgileUri({
+          pathname: `/filter/favourite`,
+        })));
+      } else {
+        return this.doRequest(this.makeRequestHeader(this.makeUri({
+          pathname: `/filter/favourite`,
+        })));
+      }
+    }
 
   /** Get Epic
    * [Jira Doc](https://docs.atlassian.com/jira-software/REST/cloud/#agile/1.0/epic-getEpic)
